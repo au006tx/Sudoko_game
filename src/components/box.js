@@ -19,8 +19,7 @@ class Box extends Component {
                 color :'#0bff00',
                 count: 2,
                 disabled: false
-              })
-              
+              }) 
             }
         else if(this.state.count == 2){
         this.setState({
@@ -54,8 +53,8 @@ class Box extends Component {
                 this.props.number ? (
                 <div>{this.props.number}</div>
                 ) : [( this.props.answer ?
-                <input className="Box-input" type="text" 
-                onChange={(event) => this.valueCheck(event.target.value)} 
+                <input className="Box-input" type="number" 
+                onChange={(event) => this.valueCheck(event.target.value)} maxLength={1}
                 style={{backgroundColor:this.state.color}} 
                 disabled={(this.state.disabled)? "disabled" : ""} /> : null
                 )]
