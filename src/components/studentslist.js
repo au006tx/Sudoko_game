@@ -1,10 +1,15 @@
 import React from 'react';
-
+import { Button, Form } from 'react-bootstrap';
 class StudentsList extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             students : [
+                {
+                    'firstName': 'Salman',
+                    'lastName': 'Ahmed',
+                    'skills': ['Python','Django','CSS']
+                },
                 {
                     'firstName': 'Pramod',
                     'lastName': 'Ray',
@@ -27,6 +32,9 @@ class StudentsList extends React.Component {
         }
 
         this.onAdd = this.onAdd.bind(this);
+        this.sortFname = this.sortFname.bind(this);
+        this.sortLname = this.sortLname.bind(this);
+        this.sortSkills = this.sortSkills.bind(this);
     }
 
     displaylist() {
@@ -50,34 +58,61 @@ class StudentsList extends React.Component {
                 skills : skills,
             }]
         })
-   
     }
 
-  
+    sortFname() {
+        let sortedfname = this.state.students.sort((a,b) => {
+            return a.firstName.localeCompare(b.firstName);
+        });
+        this.setState({
+            students : sortedfname
+        });
+    }
 
+    sortLname() {
+        let sortedlname = this.state.students.sort((a,b) => {
+            return a.lastName.localeCompare(b.lastName);
+        });
+        this.setState({
+            students : sortedlname
+        });
+    }
 
-    
+    sortSkills() {
+        let sortedskills = this.state.students.sort((a,b) => {
+            return a.skills.length > b.skills.length ? -1 : 1;
+        });
+        this.setState({
+            students : sortedskills
+        })
+    }
+
     render(){
         return(
             <div style={{margin:'20px'}}>
                 <div>
-                    <div>
-                        firstName : <input value={this.state.firstName} onChange={(event) => this.setState({firstName : event.target.value})} />
+                    <div style={{margin:'10px', padding:'10px', width:'250px'}}>
+                        <Form.Control size="lg" type="text" placeholder="first name" value={this.state.firstName} onChange={(event) => this.setState({firstName : event.target.value})} />
+                        <Form.Control size="lg" type="text" placeholder="last name" value={this.state.lastName} onChange={(event) => this.setState({lastName : event.target.value})} />
+                        <Form.Control size="lg" type="text" placeholder="skills" value={this.state.skills} onChange={(event) => this.setState({skills : event.target.value })} />
                     </div>
-                    <div>
-                        lastName : <input value={this.state.lastName} onChange={(event) => this.setState({lastName : event.target.value})} />
+                    <div style={{padding:'10px', margin:'5px'}}>
+                    <Button variant="outline-info" onClick={this.onAdd}> Add </Button>
                     </div>
-                    <div>
-                        Skills : <input value={this.state.skills} onChange={(event) => this.setState({skills : event.target.value })} />
-                    </div>
-                    <button onClick={this.onAdd}> Add </button>
                 </div>
-                <div>
-                    <button > firstName </button>
-                    <button> lastName </button>
-                    <button> Skills </button>
+                <div style={{padding:'10px', margin:'5px'}}>
+                    <Button variant="outline-info" onClick={this.sortFname}> firstName </Button>
                 </div>
+                <div style={{padding:'10px', margin:'5px'}}>
+                    <Button variant="outline-info" onClick={this.sortLname}> lastName </Button>
+                </div>
+                <div style={{padding:'10px', margin:'5px'}}>
+                    <Button variant="outline-info" onClick={this.sortSkills}> Skills </Button>
+                </div>
+                <div >
                 {this.displaylist()}
+                </div>
+                
                 
             </div>
 
